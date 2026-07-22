@@ -1,227 +1,151 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KIVO | Onboarding con cuenta y carga documental</title>
-<style>
-:root{
-  --yellow:#f5b800;--yellow2:#ffd95a;--black:#171717;--gray:#667085;
-  --line:#e4e7ec;--bg:#f6f7f9;--white:#fff;--green:#16803c;--red:#b42318;
-  --blue:#175cd3;--shadow:0 16px 40px rgba(16,24,40,.08)
-}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--black)}
-button,input,select,textarea{font:inherit}.app{min-height:100vh;display:grid;grid-template-columns:300px 1fr}
-aside{background:#151515;color:#fff;padding:24px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column}
-.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;background:var(--yellow);border-radius:14px;display:grid;place-items:center;font-size:28px}
-.brand h1{margin:0;font-size:20px}.brand p{margin:4px 0 0;color:#b8bec6;font-size:12px}
-.userbox{margin:22px 0;background:#242424;border:1px solid #383838;border-radius:14px;padding:13px}
-.userbox b{font-size:13px}.userbox div{font-size:12px;color:#bbc2ca;margin-top:5px;word-break:break-word}
-.progress{margin-bottom:18px}.bar{height:8px;background:#363636;border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;background:var(--yellow);width:0;transition:.3s}
-.progress-meta{display:flex;justify-content:space-between;font-size:11px;color:#aeb5be;margin-top:7px}
-.steps{display:flex;flex-direction:column;gap:6px}.step{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:9px;border-radius:11px;color:#aeb4bc}
-.step.active{background:#292929;color:#fff}.step.done{color:#fff}.num{width:30px;height:30px;border-radius:50%;background:#343434;display:grid;place-items:center;font-size:12px;font-weight:700}
-.step.active .num{background:var(--yellow);color:#111}.step.done .num{background:var(--green)}
-.step b{font-size:13px}.step span{display:block;color:#838c97;font-size:11px;margin-top:2px}
-.save{margin-top:auto;border-top:1px solid #373737;padding-top:18px}.save button{width:100%;padding:11px;border-radius:10px;border:1px solid #4b4b4b;background:#222;color:#fff;cursor:pointer}
-main{padding:28px}.top{max-width:1100px;margin:0 auto 18px;display:flex;justify-content:space-between;align-items:center}.top h2{margin:0;font-size:24px}.top p{margin:5px 0 0;color:var(--gray);font-size:13px}
-.secure{background:#edf8f1;color:var(--green);padding:9px 12px;border-radius:999px;font-size:12px;font-weight:700}
-.wrap{max-width:1100px;margin:0 auto}.panel{display:none;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}.panel.active{display:block}
-.head{padding:24px 26px 18px;border-bottom:1px solid var(--line)}.tag{display:inline-block;background:#fff5cc;color:#745500;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:700;margin-bottom:9px}
-.head h3{margin:0;font-size:24px}.head p{margin:8px 0 0;color:var(--gray);font-size:14px;line-height:1.5}.body{padding:24px 26px}.footer{padding:18px 26px;border-top:1px solid var(--line);background:#fafafa;display:flex;justify-content:space-between}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.field{display:flex;flex-direction:column;gap:7px}.field label{font-size:13px;font-weight:700}.field small{color:var(--gray);font-size:11px}
-input,select,textarea{width:100%;padding:12px 13px;border:1px solid #cfd4dc;border-radius:11px;outline:none;background:#fff}
-input:focus,select:focus,textarea:focus{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(245,184,0,.18)}
-.btn{padding:12px 18px;border-radius:11px;border:1px solid #cfd4dc;background:#fff;font-weight:700;cursor:pointer}.btn.primary{background:var(--yellow);border-color:var(--yellow);color:#111}.btn:disabled{opacity:.45;cursor:not-allowed}
-.choice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.choice{border:1.5px solid var(--line);border-radius:14px;padding:15px;cursor:pointer;background:#fff}.choice.selected{border-color:var(--yellow);background:#fffaf0;box-shadow:0 0 0 3px rgba(245,184,0,.12)}
-.choice b{font-size:14px}.choice span{display:block;margin-top:4px;color:var(--gray);font-size:12px}
-.account-card{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}.benefits{background:#171717;color:#fff;border-radius:16px;padding:22px}.benefits h4{margin:0 0 12px}.benefits ul{margin:0;padding-left:18px;line-height:1.8;font-size:13px;color:#d7dbe0}
-.calc{display:grid;grid-template-columns:1.3fr .7fr;gap:22px}.box{border:1px solid var(--line);border-radius:16px;padding:18px;background:#fbfcfd}.range-head{display:flex;justify-content:space-between;align-items:center}.range-head b{font-size:14px}.range-val{font-size:24px;font-weight:800}
-input[type=range]{padding:0;border:none;box-shadow:none;accent-color:var(--yellow)}.scale{display:flex;justify-content:space-between;color:var(--gray);font-size:11px}
-.summary{background:#171717;color:#fff;border-radius:18px;padding:22px}.metric{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #343434}.metric:last-child{border-bottom:none}.metric span{font-size:12px;color:#c5cad0}.metric b{font-size:20px}
-.notice{padding:13px 14px;border-left:4px solid var(--blue);background:#f4f8ff;border-radius:10px;font-size:13px;line-height:1.5}.warning{border-color:var(--red);background:#fff4f2}
-.upload-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.upload{border:1.5px dashed #98a2b3;border-radius:15px;padding:18px;background:#fbfcfd;min-height:180px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.upload.ok{border-style:solid;border-color:#75d6a0;background:#f2fcf6}.upload-icon{font-size:32px}.upload h4{margin:8px 0 5px}.upload p{margin:0;color:var(--gray);font-size:12px;line-height:1.4}.upload input{margin-top:12px}
-.download-card{display:flex;justify-content:space-between;gap:18px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:18px;background:#fffaf0}.download-card h4{margin:0}.download-card p{margin:6px 0 0;color:var(--gray);font-size:13px}
-.checklist{margin-top:18px;border:1px solid var(--line);border-radius:14px;padding:16px}.check{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:13px;line-height:1.4}.check i{width:22px;height:22px;border-radius:50%;background:#e9edf2;display:grid;place-items:center;font-style:normal;font-size:11px}.check.done i{background:var(--green);color:#fff}
-.review{display:grid;grid-template-columns:1fr 1fr;gap:14px}.review-card{border:1px solid var(--line);border-radius:14px;padding:16px}.review-card h4{margin:0 0 10px}.review-card div{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid #f0f1f3;font-size:12px}.review-card div:last-child{border-bottom:none}.review-card span:first-child{color:var(--gray)}.review-card b{text-align:right}
-.hidden{display:none!important}.result{text-align:center;padding:38px 24px}.result-icon{width:76px;height:76px;border-radius:50%;background:#eaf8ef;display:grid;place-items:center;font-size:38px;margin:0 auto 18px}.result h3{margin:0;font-size:27px}.result p{max-width:650px;margin:12px auto;color:var(--gray);line-height:1.6}
-@media(max-width:980px){.app{grid-template-columns:1fr}aside{height:auto;position:relative}.steps{display:grid;grid-template-columns:repeat(3,1fr)}.save{display:none}.account-card,.calc,.grid2,.review{grid-template-columns:1fr}}
-@media(max-width:640px){main{padding:14px}.body,.head,.footer{padding-left:16px;padding-right:16px}.upload-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.step span{display:none}.secure{display:none}}
-</style>
-</head>
-<body>
-<div class="app">
-<aside>
-  <div class="brand"><div class="logo">🦁</div><div><h1>KIVO</h1><p>Solicitud digital de préstamo</p></div></div>
-  <div class="userbox"><b>Cuenta del solicitante</b><div id="accountEmail">Aún no registrada</div></div>
-  <div class="progress"><div class="bar"><span id="bar"></span></div><div class="progress-meta"><span id="stepText">Paso 1 de 7</span><span id="pct">0%</span></div></div>
-  <div class="steps">
-    <div class="step active" data-step="0"><div class="num">1</div><div><b>Crear cuenta</b><span>Acceso y recuperación</span></div></div>
-    <div class="step" data-step="1"><div class="num">2</div><div><b>Datos personales</b><span>Identidad y ubicación</span></div></div>
-    <div class="step" data-step="2"><div class="num">3</div><div><b>Tu préstamo</b><span>Monto, plazo y cuota</span></div></div>
-    <div class="step" data-step="3"><div class="num">4</div><div><b>Capacidad de pago</b><span>Ingresos y obligaciones</span></div></div>
-    <div class="step" data-step="4"><div class="num">5</div><div><b>Perfil y vivienda</b><span>Actividad y domicilio</span></div></div>
-    <div class="step" data-step="5"><div class="num">6</div><div><b>Documentos</b><span>Descarga y carga</span></div></div>
-    <div class="step" data-step="6"><div class="num">7</div><div><b>Revisión final</b><span>Confirmación y envío</span></div></div>
-  </div>
-  <div class="save"><button onclick="saveProgress()">Guardar y salir</button></div>
-</aside>
+  <head>
+    <meta charset="UTF-8" />
 
-<main>
-  <div class="top"><div><h2>Pre-evaluación digital</h2><p>Puedes guardar el avance y retomar el proceso con tu correo.</p></div><div class="secure">🔒 Información protegida</div></div>
-  <div class="wrap">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <section class="panel active" data-panel="0">
-    <div class="head"><span class="tag">PASO 1</span><h3>Crea tu cuenta KIVO</h3><p>Tu cuenta permitirá guardar el avance, retomar la solicitud y cargar los documentos requeridos.</p></div>
-    <div class="body">
-      <div class="account-card">
-        <div>
-          <div class="grid2">
-            <div class="field"><label>Correo electrónico</label><input id="regEmail" type="email" placeholder="nombre@correo.com"></div>
-            <div class="field"><label>Confirmar correo</label><input id="regEmail2" type="email" placeholder="Repite tu correo"></div>
-            <div class="field"><label>Contraseña</label><input id="password" type="password" placeholder="Mínimo 8 caracteres"></div>
-            <div class="field"><label>Confirmar contraseña</label><input id="password2" type="password" placeholder="Repite la contraseña"></div>
+    <meta name="description" content="Onboarding digital de Kivo" />
+
+    <title>Kivo Onboarding</title>
+
+    <link rel="stylesheet" href="/input.css" />
+  </head>
+
+  <body class="min-h-screen bg-black font-sans text-white">
+    <main class="flex min-h-screen items-center justify-center px-6 py-12">
+      <section data-animate class="w-full max-w-md">
+        <header class="mb-8 text-center">
+          <div
+            class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-black"
+          >
+            <i data-lucide="sparkles" class="h-8 w-8"></i>
           </div>
-          <label style="display:flex;gap:10px;margin-top:18px;font-size:13px;line-height:1.5"><input id="terms" type="checkbox" style="width:auto;margin-top:3px"><span>Acepto los términos de uso y autorizo el tratamiento de mis datos para la pre-evaluación.</span></label>
+
+          <h1 class="text-3xl font-bold tracking-tight">Crea tu cuenta</h1>
+
+          <p class="mt-3 text-sm leading-6 text-white/60">
+            Regístrate para comenzar tu solicitud de préstamo.
+          </p>
+        </header>
+
+        <form data-onboarding-form class="space-y-5" novalidate>
+          <div>
+            <label for="email" class="mb-2 block text-sm font-medium">
+              Correo electrónico
+            </label>
+
+            <div class="relative">
+              <i
+                data-lucide="mail"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/40"
+              ></i>
+
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="nombre@correo.com"
+                class="kivo-input pl-12"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="password" class="mb-2 block text-sm font-medium">
+              Contraseña
+            </label>
+
+            <div class="relative">
+              <i
+                data-lucide="lock"
+                class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/40"
+              ></i>
+
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Mínimo 8 caracteres"
+                class="kivo-input px-12"
+                required
+              />
+
+              <button
+                type="button"
+                data-password-toggle="password"
+                class="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 transition hover:text-white"
+                aria-label="Mostrar u ocultar contraseña"
+              >
+                <i data-lucide="eye" class="h-5 w-5"></i>
+              </button>
+            </div>
+          </div>
+
+          <div
+            data-error-message
+            class="hidden rounded-xl border border-error/30 bg-error/10 p-4 text-sm text-error"
+            role="alert"
+          >
+            <div class="flex items-start gap-3">
+              <i data-lucide="circle-x" class="mt-0.5 h-5 w-5 shrink-0"></i>
+
+              <p data-message-text>Ingresa un correo electrónico válido.</p>
+            </div>
+          </div>
+
+          <div
+            data-success-message
+            class="hidden rounded-xl border border-success/30 bg-success/10 p-4 text-sm text-success"
+            role="status"
+          >
+            <div class="flex items-start gap-3">
+              <i data-lucide="circle-check-big" class="mt-0.5 h-5 w-5 shrink-0"></i>
+
+              <p>Datos validados correctamente.</p>
+            </div>
+          </div>
+
+          <button type="submit" data-button-animation class="kivo-button">
+            Crear cuenta
+
+            <i data-lucide="arrow-right" class="h-5 w-5"></i>
+          </button>
+        </form>
+
+        <div
+          data-animate
+          class="mt-6 rounded-xl border border-warning/25 bg-warning/10 p-4"
+        >
+          <div class="flex items-start gap-3">
+            <i
+              data-lucide="triangle-alert"
+              class="mt-0.5 h-5 w-5 shrink-0 text-warning"
+            ></i>
+
+            <p class="text-sm leading-6 text-white/70">
+              Nunca compartas tu contraseña ni el código de verificación que recibirás por
+              correo.
+            </p>
+          </div>
         </div>
-        <div class="benefits"><h4>Con tu cuenta podrás</h4><ul><li>Guardar automáticamente cada etapa.</li><li>Retomar la solicitud desde otro dispositivo.</li><li>Descargar el formulario requerido.</li><li>Cargar fotografías y documentos.</li><li>Consultar el estado de la pre-evaluación.</li></ul></div>
-      </div>
-    </div>
-    <div class="footer"><button class="btn" disabled>Anterior</button><button class="btn primary" onclick="next()">Crear cuenta y continuar</button></div>
-  </section>
 
-  <section class="panel" data-panel="1">
-    <div class="head"><span class="tag">PASO 2</span><h3>Datos personales</h3><p>Completa la información básica para identificarte y verificar la cobertura.</p></div>
-    <div class="body">
-      <div class="grid2">
-        <div class="field"><label>Nombre completo</label><input id="fullName"></div>
-        <div class="field"><label>Cédula de identidad</label><input id="ci"></div>
-        <div class="field"><label>Celular</label><input id="phone"></div>
-        <div class="field"><label>Fecha de nacimiento</label><input id="birthdate" type="date"></div>
-      </div>
-      <div style="margin-top:22px"><div class="field"><label>Ciudad</label><div class="choice-grid" data-group="city"><div class="choice" data-value="La Paz"><b>La Paz</b><span>Servicio disponible</span></div><div class="choice" data-value="El Alto"><b>El Alto</b><span>Servicio disponible</span></div><div class="choice" data-value="Otra ciudad"><b>Otra ciudad</b><span>Fuera de cobertura actual</span></div></div></div></div>
-    </div>
-    <div class="footer"><button class="btn" onclick="prev()">Anterior</button><button class="btn primary" onclick="next()">Continuar</button></div>
-  </section>
+        <p data-animate class="mt-8 text-center text-sm text-white/50">
+          ¿Ya tienes una cuenta?
 
-  <section class="panel" data-panel="2">
-    <div class="head"><span class="tag">PASO 3</span><h3>Configura tu préstamo</h3><p>Prueba diferentes combinaciones de monto y plazo antes de continuar.</p></div>
-    <div class="body">
-      <div class="calc">
-        <div>
-          <div class="box"><div class="range-head"><b>Monto solicitado</b><span class="range-val" id="amountLabel">Bs 15.000</span></div><input id="amount" type="range" min="7000" max="35000" step="1000" value="15000"><div class="scale"><span>Bs 7.000</span><span>Bs 35.000</span></div></div>
-          <div class="box" style="margin-top:16px"><div class="range-head"><b>Plazo</b><span class="range-val" id="termLabel">18 meses</span></div><input id="term" type="range" min="6" max="36" step="3" value="18"><div class="scale"><span>6 meses</span><span>36 meses</span></div></div>
-          <div class="grid2" style="margin-top:16px"><div class="field"><label>Día de pago</label><select id="payday"><option value="">Selecciona</option><option>4</option><option>5</option><option>10</option><option>15</option><option>20</option></select></div><div class="field"><label>Destino</label><select id="purpose"><option value="">Selecciona</option><option>Capital de trabajo</option><option>Compra de mercadería</option><option>Educación</option><option>Salud</option><option>Mejora de vivienda</option><option>Vehículo</option><option>Otro</option></select></div></div>
-        </div>
-        <div class="summary"><div class="metric"><span>Monto</span><b id="sAmount"></b></div><div class="metric"><span>Plazo</span><b id="sTerm"></b></div><div class="metric"><span>Cuota estimada</span><b id="sPayment"></b></div><div class="metric"><span>Total estimado</span><b id="sTotal"></b></div><p style="font-size:11px;color:#aeb5bd;line-height:1.5">Simulación referencial con tasa mensual del 3%. La condición final dependerá de la evaluación.</p></div>
-      </div>
-    </div>
-    <div class="footer"><button class="btn" onclick="prev()">Anterior</button><button class="btn primary" onclick="next()">Continuar</button></div>
-  </section>
+          <a
+            href="#"
+            class="font-semibold text-secondary transition hover:brightness-110"
+          >
+            Inicia sesión
+          </a>
+        </p>
+      </section>
+    </main>
 
-  <section class="panel" data-panel="3">
-    <div class="head"><span class="tag">PASO 4</span><h3>Capacidad de pago</h3><p>Registra tus ingresos, antigüedad y obligaciones vigentes.</p></div>
-    <div class="body">
-      <div class="grid2">
-        <div class="field"><label>Ingreso neto mensual</label><input id="income" type="number"></div>
-        <div class="field"><label>Antigüedad laboral o del negocio</label><input id="seniority" type="number" placeholder="Meses"></div>
-        <div class="field"><label>Número de dependientes</label><input id="dependents" type="number" value="0"></div>
-        <div class="field"><label>¿Reporte negativo en central de riesgos?</label><select id="risk"><option value="">Selecciona</option><option>No</option><option>Sí</option></select></div>
-        <div class="field"><label>Número de deudas vigentes</label><select id="debtCount"><option value="0">No tengo deudas</option><option value="1">1 deuda</option><option value="2">2 deudas</option><option value="3">3 deudas</option><option value="4">Más de 3 deudas</option></select></div>
-        <div class="field"><label>Total mensual de cuotas</label><input id="debtPayment" type="number" value="0"></div>
-      </div>
-      <div id="capacity" class="notice" style="margin-top:20px">Completa los datos para estimar tu capacidad de pago.</div>
-    </div>
-    <div class="footer"><button class="btn" onclick="prev()">Anterior</button><button class="btn primary" onclick="next()">Continuar</button></div>
-  </section>
-
-  <section class="panel" data-panel="4">
-    <div class="head"><span class="tag">PASO 5</span><h3>Perfil laboral y vivienda</h3><p>Mostraremos campos distintos según tu fuente principal de ingresos.</p></div>
-    <div class="body">
-      <div class="field"><label>Fuente principal de ingresos</label><div class="choice-grid" data-group="incomeType"><div class="choice" data-value="Asalariado"><b>Asalariado</b><span>Trabajo en una empresa</span></div><div class="choice" data-value="Independiente"><b>Independiente</b><span>Tengo negocio o trabajo por cuenta propia</span></div></div></div>
-      <div id="salary" class="grid2 hidden" style="margin-top:20px"><div class="field"><label>Empresa</label><input id="company"></div><div class="field"><label>Rubro</label><input id="companySector"></div><div class="field"><label>¿Aporta a la Gestora?</label><select id="gestora"><option value="">Selecciona</option><option>Sí</option><option>No</option></select></div><div class="field"><label>¿Tiene boletas de pago?</label><select id="payslips"><option value="">Selecciona</option><option>Sí</option><option>No</option></select></div></div>
-      <div id="business" class="grid2 hidden" style="margin-top:20px"><div class="field"><label>Rubro del negocio</label><input id="businessSector"></div><div class="field"><label>¿Tiene NIT?</label><select id="nit"><option value="">Selecciona</option><option>Sí</option><option>No</option></select></div><div class="field"><label>¿Tiene patente/licencia?</label><select id="license"><option value="">Selecciona</option><option>Sí</option><option>No</option></select></div><div class="field"><label>¿Tiene extracto bancario?</label><select id="bankStatement"><option value="">Selecciona</option><option>Sí</option><option>No</option></select></div></div>
-      <div class="grid2" style="margin-top:20px"><div class="field"><label>Estado civil</label><select id="civil"><option value="">Selecciona</option><option>Soltero(a)</option><option>Casado(a)</option><option>Viudo(a)</option><option>Divorciado(a)</option></select></div><div class="field"><label>Tipo de vivienda</label><select id="housing"><option value="">Selecciona</option><option>Vivienda propia</option><option>Vivienda familiar</option><option>Anticrético</option><option>Alquiler</option></select></div></div>
-      <div class="field" style="margin-top:18px"><label>Dirección actual</label><textarea id="address" rows="3"></textarea></div>
-      <div id="guarantor" class="field hidden" style="margin-top:18px"><label>¿Cuenta con garante con vivienda propia?</label><select id="hasGuarantor"><option value="">Selecciona</option><option>Sí</option><option>No</option></select></div>
-    </div>
-    <div class="footer"><button class="btn" onclick="prev()">Anterior</button><button class="btn primary" onclick="next()">Continuar</button></div>
-  </section>
-
-  <section class="panel" data-panel="5">
-    <div class="head"><span class="tag">PASO 6</span><h3>Descarga y carga de documentos</h3><p>Completa los pasos solicitados para que el equipo pueda realizar la preaprobación.</p></div>
-    <div class="body">
-      <div class="download-card">
-        <div><h4>Formulario de declaración del solicitante</h4><p>Descárgalo, imprímelo, complétalo a mano y conserva el original.</p></div>
-        <button class="btn primary" onclick="downloadForm()">Descargar formulario</button>
-      </div>
-
-      <div class="checklist">
-        <div class="check" id="c1"><i>1</i><span>Imprime el documento y llénalo a mano con los datos solicitados.</span></div>
-        <div class="check" id="c2"><i>2</i><span>Toma una fotografía clara del documento debidamente llenado.</span></div>
-        <div class="check" id="c3"><i>3</i><span>Toma fotografías de tu CI, anverso y reverso.</span></div>
-        <div class="check" id="c4"><i>4</i><span>Toma una selfie sosteniendo tu carnet de identidad.</span></div>
-      </div>
-
-      <div class="upload-grid" style="margin-top:20px">
-        <div class="upload" id="uForm"><div class="upload-icon">📄</div><h4>Formulario llenado</h4><p>Fotografía o PDF del documento completo.</p><input type="file" accept="image/*,.pdf" onchange="markUpload(this,'uForm','c2')"></div>
-        <div class="upload" id="uFront"><div class="upload-icon">🪪</div><h4>CI - anverso</h4><p>Fotografía frontal, nítida y completa.</p><input type="file" accept="image/*" onchange="markUpload(this,'uFront','c3')"></div>
-        <div class="upload" id="uBack"><div class="upload-icon">🪪</div><h4>CI - reverso</h4><p>Fotografía posterior, nítida y completa.</p><input type="file" accept="image/*" onchange="markUpload(this,'uBack','c3')"></div>
-        <div class="upload" id="uSelfie"><div class="upload-icon">🤳</div><h4>Selfie con CI</h4><p>Tu rostro y el carnet deben verse claramente.</p><input type="file" accept="image/*" capture="user" onchange="markUpload(this,'uSelfie','c4')"></div>
-      </div>
-      <div class="notice" style="margin-top:20px">Una vez recibidos los documentos, una persona del equipo de KIVO se pondrá en contacto contigo a través de la plataforma y del correo registrado.</div>
-    </div>
-    <div class="footer"><button class="btn" onclick="prev()">Anterior</button><button class="btn primary" onclick="next()">Revisar solicitud</button></div>
-  </section>
-
-  <section class="panel" data-panel="6">
-    <div class="head"><span class="tag">PASO 7</span><h3>Revisión final</h3><p>Verifica la información y confirma el envío para preaprobación.</p></div>
-    <div class="body">
-      <div class="review" id="review"></div>
-      <label style="display:flex;gap:10px;margin-top:20px;font-size:13px;line-height:1.5"><input id="confirm" type="checkbox" style="width:auto;margin-top:3px"><span>Confirmo que los datos y documentos cargados son correctos y autorizo su revisión.</span></label>
-    </div>
-    <div class="footer"><button class="btn" onclick="prev()">Anterior</button><button class="btn primary" onclick="submitApp()">Enviar para preaprobación</button></div>
-  </section>
-
-  <section class="panel" data-panel="7">
-    <div class="result"><div class="result-icon">✓</div><h3>Documentación enviada</h3><p>La solicitud y los documentos fueron registrados correctamente. El estado sugerido en el CRM es <b>“Pendiente de preaprobación documental”</b>. El cliente podrá ingresar nuevamente con su correo para consultar el avance o complementar información.</p><button class="btn primary" style="margin-top:22px" onclick="location.reload()">Volver al inicio</button></div>
-  </section>
-
-  </div>
-</main>
-</div>
-
-<script>
-let current=0;const total=7;const selections={};const uploaded={};
-const panels=[...document.querySelectorAll('.panel')],steps=[...document.querySelectorAll('.step')];
-const $=id=>document.getElementById(id);
-function fmt(v){return 'Bs '+Number(v||0).toLocaleString('es-BO')}
-function payment(){const P=+$('amount').value,n=+$('term').value,r=.03;return P*(r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1)}
-function calc(){const P=+$('amount').value,n=+$('term').value,p=payment();$('amountLabel').textContent=fmt(P);$('termLabel').textContent=n+' meses';$('sAmount').textContent=fmt(P);$('sTerm').textContent=n+' meses';$('sPayment').textContent=fmt(Math.round(p));$('sTotal').textContent=fmt(Math.round(p*n));capacity()}
-$('amount').oninput=calc;$('term').oninput=calc;
-document.querySelectorAll('[data-group]').forEach(g=>g.querySelectorAll('.choice').forEach(c=>c.onclick=()=>{g.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));c.classList.add('selected');selections[g.dataset.group]=c.dataset.value;if(g.dataset.group==='incomeType'){salary.classList.toggle('hidden',c.dataset.value!=='Asalariado');business.classList.toggle('hidden',c.dataset.value!=='Independiente')}}));
-$('housing').onchange=e=>guarantor.classList.toggle('hidden',!['Anticrético','Alquiler'].includes(e.target.value));
-$('income').oninput=capacity;$('debtPayment').oninput=capacity;
-function capacity(){if(!$('income'))return;const inc=+$('income').value||0,debt=+$('debtPayment').value||0,ratio=inc?((debt+payment())/inc*100):0;if(!inc){$('capacity').textContent='Completa los datos para estimar tu capacidad de pago.';return}$('capacity').textContent=`Compromiso mensual estimado: ${fmt(Math.round(debt+payment()))}. Relación cuota/ingreso: ${ratio.toFixed(1)}%.`}
-function validate(){
- if(current===0){if(!$('regEmail').value||$('regEmail').value!==$('regEmail2').value||$('password').value.length<8||$('password').value!==$('password2').value||!$('terms').checked){alert('Completa correctamente el registro de cuenta.');return false}$('accountEmail').textContent=$('regEmail').value}
- if(current===1){if(!$('fullName').value||!$('ci').value||!$('phone').value||!$('birthdate').value||!selections.city){alert('Completa todos los datos personales.');return false}}
- if(current===2){if(!$('payday').value||!$('purpose').value){alert('Selecciona día de pago y destino.');return false}}
- if(current===3){if(!$('income').value||!$('seniority').value||!$('risk').value){alert('Completa los datos de capacidad de pago.');return false}}
- if(current===4){if(!selections.incomeType||!$('civil').value||!$('housing').value||!$('address').value){alert('Completa el perfil y vivienda.');return false}}
- if(current===5){if(!uploaded.uForm||!uploaded.uFront||!uploaded.uBack||!uploaded.uSelfie){alert('Debes cargar el formulario, CI anverso, CI reverso y selfie con CI.');return false}}
- return true
-}
-function next(){if(!validate())return;current++;if(current===6)buildReview();show()}
-function prev(){if(current>0){current--;show()}}
-function show(){panels.forEach((p,i)=>p.classList.toggle('active',i===current));steps.forEach((s,i)=>{s.classList.toggle('active',i===current);s.classList.toggle('done',i<current);s.querySelector('.num').textContent=i<current?'✓':i+1});const pc=Math.min(100,Math.round(current/total*100));$('bar').style.width=pc+'%';$('pct').textContent=pc+'%';$('stepText').textContent=current<7?`Paso ${current+1} de 7`:'Completado';window.scrollTo({top:0,behavior:'smooth'})}
-function saveProgress(){localStorage.setItem('kivoDemo',JSON.stringify({current,email:$('regEmail').value}));alert('Avance guardado de forma demostrativa en este navegador.')}
-function downloadForm(){const content=`FORMULARIO KIVO - DECLARACIÓN DEL SOLICITANTE\n\nNombre completo: ______________________________\nCédula de identidad: __________________________\nDirección: ____________________________________\nIngreso mensual: ______________________________\nDestino del préstamo: _________________________\n\nDeclaro que la información proporcionada es correcta.\n\nFirma: _____________________  Fecha: ___________`;const blob=new Blob([content],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Formulario_KIVO_Solicitante.txt';a.click();URL.revokeObjectURL(a.href);$('c1').classList.add('done')}
-function markUpload(input,box,check){if(input.files.length){uploaded[box]=input.files[0].name;$(box).classList.add('ok');$(box).querySelector('p').textContent='Archivo cargado: '+input.files[0].name;$(check).classList.add('done')}}
-function buildReview(){const cards=[['Cuenta',[['Correo',$('regEmail').value],['Estado','Cuenta registrada']]],['Solicitante',[['Nombre',$('fullName').value],['CI',$('ci').value],['Ciudad',selections.city],['Celular',$('phone').value]]],['Préstamo',[['Monto',fmt($('amount').value)],['Plazo',$('term').value+' meses'],['Cuota estimada',fmt(Math.round(payment()))],['Destino',$('purpose').value]]],['Documentos',[['Formulario',uploaded.uForm],['CI anverso',uploaded.uFront],['CI reverso',uploaded.uBack],['Selfie',uploaded.uSelfie]]]];$('review').innerHTML=cards.map(([t,rows])=>`<div class="review-card"><h4>${t}</h4>${rows.map(([k,v])=>`<div><span>${k}</span><b>${v||'-'}</b></div>`).join('')}</div>`).join('')}
-function submitApp(){if(!$('confirm').checked){alert('Debes confirmar la información antes de enviar.');return}current=7;panels.forEach((p,i)=>p.classList.toggle('active',i===7));steps.forEach(s=>{s.classList.remove('active');s.classList.add('done');s.querySelector('.num').textContent='✓'});$('bar').style.width='100%';$('pct').textContent='100%';$('stepText').textContent='Completado'}
-calc();show();
-</script>
-</body>
+    <script type="module" src="/js/app.js"></script>
+  </body>
 </html>

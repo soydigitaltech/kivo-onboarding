@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+
+  --color-primary: #00aeff;
+  --color-secondary: #ff9900;
+
+  --color-success: #16a34a;
+  --color-error: #dc2626;
+  --color-warning: #eab308;
+
+  --color-black: #000000;
+  --color-white: #ffffff;
+}
+
+@layer base {
+  html {
+    font-family: "Inter", sans-serif;
+  }
+
+  body {
+    font-family: inherit;
+  }
+
+  button,
+  input {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .kivo-input {
+    @apply w-full rounded-xl border border-white/20 bg-white/5 px-4 py-3
+    text-white outline-none transition duration-200
+    placeholder:text-white/40
+    focus:border-primary focus:ring-4 focus:ring-primary/15;
+  }
+
+  .kivo-button {
+    @apply inline-flex w-full items-center justify-center gap-2 rounded-xl
+    bg-primary px-5 py-3 font-semibold text-black
+    transition duration-200
+    hover:brightness-110
+    focus:outline-none focus:ring-4 focus:ring-primary/25
+    disabled:cursor-not-allowed disabled:opacity-50;
+  }
+}
