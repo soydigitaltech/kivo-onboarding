@@ -25,6 +25,7 @@ import {
 export function initIcons() {
   createIcons({
     icons: {
+        
       ArrowRight,
       ArrowRightCircle,
       ArrowLeft,
