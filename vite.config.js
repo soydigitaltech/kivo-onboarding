@@ -13,8 +13,25 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "index.html"),
-        process01: resolve(__dirname, "process-01/index.html"),
+        main: resolve(
+          __dirname,
+          "index.html",
+        ),
+
+        process01: resolve(
+          __dirname,
+          "process-01/index.html",
+        ),
+
+        process02: resolve(
+          __dirname,
+          "process-02/index.html",
+        ),
+
+        process03: resolve(
+          __dirname,
+          "process-03/index.html",
+        ),
       },
     },
   },

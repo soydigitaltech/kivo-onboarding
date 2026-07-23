@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+
+    <meta
+      name="description"
+      content="Simula tu préstamo y conoce una opción compatible con tu capacidad de pago."
+    />
+
+    <title>Kivo | Simulación de préstamo</title>
+
+    <link rel="stylesheet" href="/input.css" />
+  </head>
+
+  <body class="min-h-dvh bg-primary font-sans text-[#0b1739] antialiased">
+    <main
+      class="flex min-h-dvh w-full items-start justify-center bg-primary p-3 sm:p-4 lg:h-screen lg:items-center lg:overflow-hidden lg:p-5"
+    >
+      <section
+        class="grid min-h-[calc(100dvh-24px)] w-full max-w-[1480px] overflow-hidden rounded-[24px] bg-white shadow-xl sm:min-h-[calc(100dvh-32px)] lg:h-[calc(100vh-40px)] lg:min-h-0 lg:grid-cols-[32%_68%] lg:rounded-[30px] lg:shadow-2xl"
+      >
+        <!-- Panel informativo -->
+        <aside
+          class="relative hidden overflow-hidden bg-gradient-to-br from-white via-white to-[#eaf4ff] px-9 py-7 lg:flex lg:flex-col xl:px-12"
+        >
+          <img
+            src="/logo.svg"
+            alt="Kivo"
+            class="h-auto w-[112px]"
+          />
+
+          <div class="relative z-10 mt-[clamp(1.5rem,4vh,3.5rem)] max-w-md">
+            <p
+              class="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-[#075eeb]"
+            >
+              Simulación de préstamo
+            </p>
+
+            <h1
+              class="text-[clamp(2.3rem,3.6vw,3.9rem)] font-bold leading-[1.03] tracking-[-0.05em] text-[#0b1739]"
+            >
+              Encuentra una cuota
+
+              <span class="block text-[#075eeb]">
+                compatible contigo
+              </span>
+            </h1>
+
+            <p class="mt-5 max-w-sm text-base leading-7 text-[#53617d]">
+              Elige el monto, el plazo y el día de pago que mejor se adapten a
+              tus posibilidades.
+            </p>
+
+            <div class="mt-7 grid gap-3">
+              <div
+                class="flex items-start gap-3 rounded-2xl border border-[#dce7f6] bg-white/80 p-4"
+              >
+                <div
+                  class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#eaf3ff] text-[#075eeb]"
+                >
+                  <i
+                    data-lucide="calculator"
+                    class="h-5 w-5"
+                  ></i>
+                </div>
+
+                <div>
+                  <p class="text-sm font-bold text-[#122044]">
+                    Simulación transparente
+                  </p>
+
+                  <p class="mt-1 text-xs leading-5 text-[#53617d]">
+                    Conocerás la cuota, el interés y el total estimado antes de
+                    continuar.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="flex items-start gap-3 rounded-2xl border border-[#dce7f6] bg-white/80 p-4"
+              >
+                <div
+                  class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#eaf3ff] text-[#075eeb]"
+                >
+                  <i
+                    data-lucide="repeat-2"
+                    class="h-5 w-5"
+                  ></i>
+                </div>
+
+                <div>
+                  <p class="text-sm font-bold text-[#122044]">
+                    Alternativa personalizada
+                  </p>
+
+                  <p class="mt-1 text-xs leading-5 text-[#53617d]">
+                    Cuando tu primera opción no aplique, buscaremos una
+                    combinación más adecuada.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative mt-auto min-h-[150px]">
+            <div
+              class="absolute -bottom-32 -left-24 h-[360px] w-[360px] rounded-full bg-[#e3efff]"
+            ></div>
+
+            <div
+              class="absolute bottom-2 left-4 flex h-[140px] w-[140px] items-center justify-center rounded-full bg-gradient-to-br from-[#1a75ff] to-[#064fd2] shadow-xl"
+            >
+              <i
+                data-lucide="badge-dollar-sign"
+                class="h-16 w-16 text-white"
+              ></i>
+            </div>
+
+            <div
+              class="absolute bottom-8 left-[165px] w-[195px] rounded-2xl bg-white p-4 shadow-[0_16px_50px_rgba(25,74,150,0.15)]"
+            >
+              <p class="text-sm font-bold text-[#122044]">
+                Tú tienes el control
+              </p>
+
+              <p class="mt-1 text-xs leading-5 text-[#53617d]">
+                Puedes modificar o descartar cualquier alternativa.
+              </p>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Contenido principal -->
+        <div
+          class="flex min-h-0 flex-col px-5 pb-5 pt-5 sm:px-7 sm:pb-6 sm:pt-6 lg:px-9 lg:py-6 xl:px-12"
+        >
+          <!-- Cabecera -->
+          <header class="shrink-0">
+            <div class="flex items-center justify-between gap-4">
+              <img
+                src="/logo.svg"
+                alt="Kivo"
+                class="w-[90px] lg:hidden"
+              />
+
+              <p class="ml-auto text-sm font-semibold text-[#122044] lg:ml-0">
+                Paso 3 de 10
+              </p>
+
+              <button
+                type="button"
+                class="hidden min-h-10 items-center gap-2 rounded-xl px-3 text-sm font-semibold text-[#075eeb] transition hover:bg-[#eaf3ff] focus:outline-none focus:ring-4 focus:ring-primary/15 sm:inline-flex"
+              >
+                <i
+                  data-lucide="circle-help"
+                  class="h-5 w-5"
+                ></i>
+
+                Ayuda
+              </button>
+            </div>
+
+            <div
+              class="mt-3 grid grid-cols-10 gap-1.5"
+              role="progressbar"
+              aria-label="Progreso del proceso"
+              aria-valuemin="1"
+              aria-valuemax="10"
+              aria-valuenow="3"
+            >
+              <span class="h-2 rounded-full bg-secondary"></span>
+              <span class="h-2 rounded-full bg-secondary"></span>
+              <span class="h-2 rounded-full bg-secondary"></span>
+              <span class="h-2 rounded-full bg-[#e1e6f0]"></span>
+              <span class="h-2 rounded-full bg-[#e1e6f0]"></span>
+              <span class="h-2 rounded-full bg-[#e1e6f0]"></span>
+              <span class="h-2 rounded-full bg-[#e1e6f0]"></span>
+              <span class="h-2 rounded-full bg-[#e1e6f0]"></span>
+              <span class="h-2 rounded-full bg-[#e1e6f0]"></span>
+              <span class="h-2 rounded-full bg-[#e1e6f0]"></span>
+            </div>
+          </header>
+
+          <!-- Contenido de simulación -->
+          <div
+            class="mx-auto flex w-full max-w-[980px] flex-1 flex-col justify-center py-4 lg:min-h-0 lg:py-2"
+          >
+            <div class="mb-4">
+              <h2
+                class="text-2xl font-bold tracking-[-0.03em] text-[#0b1739] lg:text-[27px]"
+              >
+                Simula tu préstamo
+              </h2>
+
+              <p class="mt-1 max-w-2xl text-sm leading-5 text-[#53617d]">
+                Selecciona una combinación y revisa el resultado estimado antes
+                de continuar.
+              </p>
+            </div>
+
+            <form
+              id="loanSimulationForm"
+              class="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]"
+              novalidate
+            >
+              <!-- Configuración -->
+              <section
+                class="rounded-2xl border border-[#dce3ee] bg-white p-4 sm:p-5"
+              >
+                <div class="mb-4">
+                  <p
+                    class="text-xs font-bold uppercase tracking-[0.12em] text-[#075eeb]"
+                  >
+                    Tu solicitud
+                  </p>
+
+                  <h3 class="mt-1 text-lg font-bold text-[#0b1739]">
+                    Configura el préstamo
+                  </h3>
+                </div>
+
+                <div class="grid gap-4">
+                  <!-- Monto -->
+                  <div>
+                    <label
+                      for="requestedAmount"
+                      class="mb-1.5 block text-sm font-bold text-[#0b1739]"
+                    >
+                      ¿Cuánto necesitas?
+                    </label>
+
+                    <div
+                      data-field-container="requestedAmount"
+                      class="rounded-xl border-2 border-[#d8deea] bg-white transition duration-200 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/15"
+                    >
+                      <div class="flex items-center">
+                        <span
+                          class="border-r border-[#d8deea] px-4 text-sm font-bold text-[#122044]"
+                        >
+                          Bs
+                        </span>
+
+                        <input
+                          id="requestedAmount"
+                          name="requestedAmount"
+                          type="text"
+                          inputmode="numeric"
+                          autocomplete="off"
+                          placeholder="Ej. 15.000"
+                          aria-describedby="requestedAmountError requestedAmountHelp"
+                          class="h-[50px] min-w-0 flex-1 rounded-r-xl bg-transparent px-4 text-base text-[#122044] outline-none placeholder:text-[#8a94a8]"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <p
+                      id="requestedAmountHelp"
+                      class="mt-1 text-xs text-[#66728a]"
+                    >
+                      Monto mínimo disponible: Bs 7.000.
+                    </p>
+
+                    <p
+                      id="requestedAmountError"
+                      data-field-error="requestedAmount"
+                      class="mt-1 hidden text-xs font-semibold text-error"
+                      role="alert"
+                    >
+                      Ingresa el monto que deseas solicitar.
+                    </p>
+                  </div>
+
+                  <!-- Plazo -->
+                  <fieldset>
+                    <legend class="mb-2 text-sm font-bold text-[#0b1739]">
+                      Selecciona el plazo
+                    </legend>
+
+                    <div
+                      id="termOptions"
+                      class="grid grid-cols-3 gap-2"
+                    >
+                      <label
+                        class="flex min-h-[46px] cursor-pointer items-center justify-center rounded-xl border-2 border-[#d8deea] bg-white px-2 text-sm font-bold text-[#122044] transition hover:border-primary hover:bg-[#f4f8ff] has-[:checked]:border-primary has-[:checked]:bg-[#eaf3ff] has-[:checked]:text-[#075eeb] has-[:checked]:ring-4 has-[:checked]:ring-primary/10"
+                      >
+                        <input
+                          type="radio"
+                          name="termMonths"
+                          value="6"
+                          class="sr-only"
+                        />
+
+                        6 meses
+                      </label>
+
+                      <label
+                        class="flex min-h-[46px] cursor-pointer items-center justify-center rounded-xl border-2 border-[#d8deea] bg-white px-2 text-sm font-bold text-[#122044] transition hover:border-primary hover:bg-[#f4f8ff] has-[:checked]:border-primary has-[:checked]:bg-[#eaf3ff] has-[:checked]:text-[#075eeb] has-[:checked]:ring-4 has-[:checked]:ring-primary/10"
+                      >
+                        <input
+                          type="radio"
+                          name="termMonths"
+                          value="12"
+                          class="sr-only"
+                        />
+
+                        12 meses
+                      </label>
+
+                      <label
+                        class="flex min-h-[46px] cursor-pointer items-center justify-center rounded-xl border-2 border-[#d8deea] bg-white px-2 text-sm font-bold text-[#122044] transition hover:border-primary hover:bg-[#f4f8ff] has-[:checked]:border-primary has-[:checked]:bg-[#eaf3ff] has-[:checked]:text-[#075eeb] has-[:checked]:ring-4 has-[:checked]:ring-primary/10"
+                      >
+                        <input
+                          type="radio"
+                          name="termMonths"
+                          value="18"
+                          class="sr-only"
+                        />
+
+                        18 meses
+                      </label>
+
+                      <label
+                        class="flex min-h-[46px] cursor-pointer items-center justify-center rounded-xl border-2 border-[#d8deea] bg-white px-2 text-sm font-bold text-[#122044] transition hover:border-primary hover:bg-[#f4f8ff] has-[:checked]:border-primary has-[:checked]:bg-[#eaf3ff] has-[:checked]:text-[#075eeb] has-[:checked]:ring-4 has-[:checked]:ring-primary/10"
+                      >
+                        <input
+                          type="radio"
+                          name="termMonths"
+                          value="24"
+                          class="sr-only"
+                        />
+
+                        24 meses
+                      </label>
+
+                      <label
+                        class="flex min-h-[46px] cursor-pointer items-center justify-center rounded-xl border-2 border-[#d8deea] bg-white px-2 text-sm font-bold text-[#122044] transition hover:border-primary hover:bg-[#f4f8ff] has-[:checked]:border-primary has-[:checked]:bg-[#eaf3ff] has-[:checked]:text-[#075eeb] has-[:checked]:ring-4 has-[:checked]:ring-primary/10"
+                      >
+                        <input
+                          type="radio"
+                          name="termMonths"
+                          value="36"
+                          class="sr-only"
+                        />
+
+                        36 meses
+                      </label>
+
+                      <label
+                        class="flex min-h-[46px] cursor-pointer items-center justify-center rounded-xl border-2 border-[#d8deea] bg-white px-2 text-sm font-bold text-[#122044] transition hover:border-primary hover:bg-[#f4f8ff] has-[:checked]:border-primary has-[:checked]:bg-[#eaf3ff] has-[:checked]:text-[#075eeb] has-[:checked]:ring-4 has-[:checked]:ring-primary/10"
+                      >
+                        <input
+                          type="radio"
+                          name="termMonths"
+                          value="48"
+                          class="sr-only"
+                        />
+
+                        48 meses
+                      </label>
+                    </div>
+
+                    <p
+                      id="termMonthsError"
+                      data-field-error="termMonths"
+                      class="mt-2 hidden text-xs font-semibold text-error"
+                      role="alert"
+                    >
+                      Selecciona un plazo para continuar.
+                    </p>
+                  </fieldset>
+
+                  <!-- Día de pago -->
+                  <div>
+                    <label
+                      for="paymentDay"
+                      class="mb-1.5 block text-sm font-bold text-[#0b1739]"
+                    >
+                      Día de pago mensual
+                    </label>
+
+                    <div
+                      data-field-container="paymentDay"
+                      class="rounded-xl border-2 border-[#d8deea] bg-white transition duration-200 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/15"
+                    >
+                      <select
+                        id="paymentDay"
+                        name="paymentDay"
+                        class="h-[50px] w-full cursor-pointer rounded-xl bg-transparent px-4 text-base text-[#122044] outline-none"
+                        required
+                      >
+                        <option value="">
+                          Selecciona un día
+                        </option>
+
+                        <option value="5">Día 5</option>
+                        <option value="10">Día 10</option>
+                        <option value="15">Día 15</option>
+                        <option value="20">Día 20</option>
+                        <option value="25">Día 25</option>
+                      </select>
+                    </div>
+
+                    <p
+                      id="paymentDayError"
+                      data-field-error="paymentDay"
+                      class="mt-1 hidden text-xs font-semibold text-error"
+                      role="alert"
+                    >
+                      Selecciona el día en que prefieres pagar.
+                    </p>
+                  </div>
+
+                  <!-- Interés -->
+                  <div
+                    class="flex items-center justify-between gap-3 rounded-xl bg-[#f4f8ff] px-4 py-3"
+                  >
+                    <div>
+                      <p class="text-xs font-medium text-[#66728a]">
+                        Tasa de interés referencial
+                      </p>
+
+                      <p
+                        id="visibleInterestRate"
+                        class="mt-0.5 text-lg font-bold text-[#0b1739]"
+                      >
+                        12% anual
+                      </p>
+                    </div>
+
+                    <div
+                      class="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-[#075eeb] shadow-sm"
+                    >
+                      <i
+                        data-lucide="percent"
+                        class="h-5 w-5"
+                      ></i>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    data-simulate-button
+                    class="flex min-h-[52px] items-center justify-center rounded-xl bg-gradient-to-r from-[#0754d9] via-[#0667f0] to-[#0754d9] px-5 text-base font-bold text-white shadow-[0_10px_24px_rgba(7,94,235,0.20)] transition hover:-translate-y-0.5 hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-primary/30 active:translate-y-0 active:scale-[0.99]"
+                  >
+                    Calcular simulación
+
+                    <i
+                      data-lucide="calculator"
+                      class="ml-3 h-5 w-5"
+                    ></i>
+                  </button>
+                </div>
+              </section>
+
+              <!-- Resultado -->
+              <section
+                class="flex flex-col rounded-2xl border border-[#dce3ee] bg-[#f8faff] p-4 sm:p-5"
+              >
+                <div>
+                  <p
+                    class="text-xs font-bold uppercase tracking-[0.12em] text-[#075eeb]"
+                  >
+                    Resultado estimado
+                  </p>
+
+                  <h3 class="mt-1 text-lg font-bold text-[#0b1739]">
+                    Resumen de tu simulación
+                  </h3>
+                </div>
+
+                <!-- Estado inicial -->
+                <div
+                  id="simulationEmptyState"
+                  class="flex flex-1 flex-col items-center justify-center py-10 text-center"
+                >
+                  <div
+                    class="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#eaf3ff] text-[#075eeb]"
+                  >
+                    <i
+                      data-lucide="chart-no-axes-combined"
+                      class="h-8 w-8"
+                    ></i>
+                  </div>
+
+                  <h4 class="mt-4 text-base font-bold text-[#122044]">
+                    Completa tu simulación
+                  </h4>
+
+                  <p class="mt-2 max-w-xs text-sm leading-6 text-[#66728a]">
+                    Ingresa el monto, selecciona el plazo y el día de pago para
+                    conocer el resultado.
+                  </p>
+                </div>
+
+                <!-- Resultado calculado -->
+                <div
+                  id="simulationResult"
+                  class="mt-4 hidden"
+                >
+                  <div
+                    class="rounded-2xl bg-gradient-to-br from-[#075eeb] to-[#064fc8] p-5 text-white"
+                  >
+                    <p class="text-xs font-medium text-white/75">
+                      Cuota mensual estimada
+                    </p>
+
+                    <p
+                      id="monthlyPaymentResult"
+                      class="mt-1 text-3xl font-bold tracking-[-0.04em]"
+                    >
+                      Bs 0
+                    </p>
+
+                    <p
+                      id="selectedTermResult"
+                      class="mt-1 text-xs text-white/75"
+                    >
+                      Durante 0 meses
+                    </p>
+                  </div>
+
+                  <div class="mt-3 grid grid-cols-2 gap-3">
+                    <article
+                      class="rounded-xl border border-[#dce5f2] bg-white p-3"
+                    >
+                      <p class="text-xs text-[#66728a]">
+                        Monto solicitado
+                      </p>
+
+                      <p
+                        id="requestedAmountResult"
+                        class="mt-1 text-base font-bold text-[#122044]"
+                      >
+                        Bs 0
+                      </p>
+                    </article>
+
+                    <article
+                      class="rounded-xl border border-[#dce5f2] bg-white p-3"
+                    >
+                      <p class="text-xs text-[#66728a]">
+                        Deuda total
+                      </p>
+
+                      <p
+                        id="totalDebtResult"
+                        class="mt-1 text-base font-bold text-[#122044]"
+                      >
+                        Bs 0
+                      </p>
+                    </article>
+
+                    <article
+                      class="rounded-xl border border-[#dce5f2] bg-white p-3"
+                    >
+                      <p class="text-xs text-[#66728a]">
+                        Relación deuda/ingreso
+                      </p>
+
+                      <p
+                        id="debtToIncomeResult"
+                        class="mt-1 text-base font-bold text-[#122044]"
+                      >
+                        0%
+                      </p>
+                    </article>
+
+                    <article
+                      class="rounded-xl border border-[#dce5f2] bg-white p-3"
+                    >
+                      <p class="text-xs text-[#66728a]">
+                        Capacidad residual
+                      </p>
+
+                      <p
+                        id="residualCapacityResult"
+                        class="mt-1 text-base font-bold text-[#122044]"
+                      >
+                        Bs 0
+                      </p>
+                    </article>
+                  </div>
+
+                  <!-- Resultado viable -->
+                  <div
+                    id="viableResult"
+                    class="mt-3 hidden rounded-xl border border-success/25 bg-success/5 p-4"
+                  >
+                    <div class="flex items-start gap-3">
+                      <div
+                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-success/10 text-success"
+                      >
+                        <i
+                          data-lucide="circle-check-big"
+                          class="h-5 w-5"
+                        ></i>
+                      </div>
+
+                      <div>
+                        <h4 class="text-sm font-bold text-[#122044]">
+                          Esta opción es compatible contigo
+                        </h4>
+
+                        <p class="mt-1 text-xs leading-5 text-[#53617d]">
+                          La cuota estimada se encuentra dentro de tu capacidad
+                          preliminar de pago.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Alternativa -->
+                  <div
+                    id="alternativeResult"
+                    class="mt-3 hidden rounded-xl border border-[#f0c36b] bg-[#fff9ed] p-4"
+                  >
+                    <p
+                      class="text-xs font-bold uppercase tracking-[0.1em] text-[#a56800]"
+                    >
+                      Tenemos una alternativa
+                    </p>
+
+                    <h4 class="mt-1 text-sm font-bold text-[#122044]">
+                      Esta combinación puede ajustarse mejor a tus posibilidades
+                    </h4>
+
+                    <div class="mt-3 grid grid-cols-3 gap-2">
+                      <div class="rounded-lg bg-white p-2.5">
+                        <p class="text-[11px] text-[#66728a]">
+                          Monto
+                        </p>
+
+                        <p
+                          id="alternativeAmount"
+                          class="mt-1 text-sm font-bold text-[#122044]"
+                        >
+                          Bs 0
+                        </p>
+                      </div>
+
+                      <div class="rounded-lg bg-white p-2.5">
+                        <p class="text-[11px] text-[#66728a]">
+                          Plazo
+                        </p>
+
+                        <p
+                          id="alternativeTerm"
+                          class="mt-1 text-sm font-bold text-[#122044]"
+                        >
+                          0 meses
+                        </p>
+                      </div>
+
+                      <div class="rounded-lg bg-white p-2.5">
+                        <p class="text-[11px] text-[#66728a]">
+                          Cuota
+                        </p>
+
+                        <p
+                          id="alternativePayment"
+                          class="mt-1 text-sm font-bold text-[#122044]"
+                        >
+                          Bs 0
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="mt-3 grid gap-2 sm:grid-cols-2">
+                      <button
+                        type="button"
+                        id="acceptAlternativeButton"
+                        class="min-h-[44px] rounded-xl bg-[#075eeb] px-4 text-sm font-bold text-white transition hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-primary/20"
+                      >
+                        Aceptar alternativa
+                      </button>
+
+                      <button
+                        type="button"
+                        id="modifySimulationButton"
+                        class="min-h-[44px] rounded-xl border-2 border-[#d8deea] bg-white px-4 text-sm font-bold text-[#122044] transition hover:border-primary hover:text-[#075eeb] focus:outline-none focus:ring-4 focus:ring-primary/15"
+                      >
+                        Modificar
+                      </button>
+                    </div>
+
+                    <button
+                      type="button"
+                      id="discardAlternativeButton"
+                      class="mt-2 min-h-[38px] w-full text-sm font-semibold text-[#66728a] transition hover:text-error"
+                    >
+                      Descartar alternativa
+                    </button>
+                  </div>
+
+                  <!-- Resultado no favorable -->
+                  <div
+                    id="unfavorableResult"
+                    class="mt-3 hidden rounded-xl border border-error/25 bg-error/5 p-4"
+                  >
+                    <div class="flex items-start gap-3">
+                      <div
+                        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-error/10 text-error"
+                      >
+                        <i
+                          data-lucide="circle-x"
+                          class="h-5 w-5"
+                        ></i>
+                      </div>
+
+                      <div>
+                        <h4 class="text-sm font-bold text-[#122044]">
+                          Por ahora no podemos continuar
+                        </h4>
+
+                        <p
+                          id="unfavorableMessage"
+                          class="mt-1 text-xs leading-5 text-[#53617d]"
+                        >
+                          En este momento, tus compromisos financieros no
+                          permiten asumir una nueva cuota.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    id="continueButton"
+                    class="mt-3 hidden min-h-[50px] w-full items-center justify-center rounded-xl bg-gradient-to-r from-[#0754d9] via-[#0667f0] to-[#0754d9] px-5 text-base font-bold text-white shadow-[0_10px_24px_rgba(7,94,235,0.20)] transition hover:-translate-y-0.5 hover:brightness-110 focus:outline-none focus:ring-4 focus:ring-primary/30"
+                  >
+                    Continuar con esta opción
+
+                    <i
+                      data-lucide="arrow-right"
+                      class="ml-3 h-5 w-5"
+                    ></i>
+                  </button>
+                </div>
+              </section>
+            </form>
+
+            <div class="mt-4">
+              <button
+                type="button"
+                data-back-button
+                class="inline-flex min-h-[44px] items-center justify-center rounded-xl px-3 text-sm font-bold text-[#53617d] transition hover:bg-[#f4f7fb] hover:text-[#075eeb] focus:outline-none focus:ring-4 focus:ring-primary/15"
+              >
+                <i
+                  data-lucide="arrow-left"
+                  class="mr-2 h-5 w-5"
+                ></i>
+
+                Volver a datos financieros
+              </button>
+            </div>
+          </div>
+
+          <footer class="shrink-0 border-t border-[#dce2ec] pt-3">
+            <div
+              class="flex flex-wrap items-center justify-center gap-1.5 text-center text-xs leading-5 text-[#53617d]"
+            >
+              <i
+                data-lucide="info"
+                class="h-3.5 w-3.5 shrink-0 text-[#122044]"
+              ></i>
+
+              <span>
+                Esta simulación es referencial y está sujeta a evaluación.
+              </span>
+            </div>
+          </footer>
+        </div>
+      </section>
+    </main>
+
+    <script
+      type="module"
+      src="/js/process-03.js"
+    ></script>
+  </body>
+</html>
